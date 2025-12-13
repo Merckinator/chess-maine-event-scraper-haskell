@@ -22,6 +22,9 @@ description:         Please see the README on GitHub at <https://github.com/Merc
 dependencies:
 - base >= 4.7 && < 5
 
+default-extensions:
+- OverloadedStrings
+
 ghc-options:
 - -Wall
 - -Wcompat
@@ -46,6 +49,11 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - chess-maine-event-scraper-haskell
+    - bytestring
+    - http-conduit
+    - http-client-tls
+    - tagsoup
+    - text
 
 tests:
   chess-maine-event-scraper-haskell-test:
