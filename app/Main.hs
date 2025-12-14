@@ -1,14 +1,20 @@
 module Main (main) where
 
-import Text.HTML.TagSoup (parseTags)
-import Lib (fetchEventPage, parseEventTitles)
+import qualified Data.Text as T
+import qualified Data.Text.IO as TIO
+import Lib (fetchEventPage, parseEventTitles, ScraperError(..))
+
+handleError :: ScraperError -> IO ()
+handleError (NetworkError code) = putStrLn $ "It seems the website is down. Status code: " ++ show code
+handleError (ParseError msg)    = putStrLn $ "Could not parse the page: " ++ msg
+
+handleSuccess :: [T.Text] -> IO ()
+handleSuccess = TIO.putStrLn . T.unlines
 
 main :: IO ()
 main = do
-    -- TODO: make fetchEventPage return an Either; handle errors
-    body <- fetchEventPage 
-    let tags = parseTags body
-        eventTitle = parseEventTitles tags
+    eitherResp <- fetchEventPage 
+    let eitherTitles = parseEventTitles <$> eitherResp 
+    either handleError handleSuccess eitherTitles
     -- TODO: do more useful things with the titles
-    mapM_ putStrLn eventTitle
 

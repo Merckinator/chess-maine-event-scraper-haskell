@@ -43,6 +43,7 @@ library:
   - http-conduit
   - http-client-tls
   - tagsoup
+  - text
 
 executables:
   chess-maine-event-scraper-haskell-exe:
