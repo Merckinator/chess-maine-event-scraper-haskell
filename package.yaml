@@ -38,6 +38,11 @@ ghc-options:
 
 library:
   source-dirs: src
+  dependencies:
+  - bytestring
+  - http-conduit
+  - http-client-tls
+  - tagsoup
 
 executables:
   chess-maine-event-scraper-haskell-exe:
@@ -49,9 +54,6 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - chess-maine-event-scraper-haskell
-    - bytestring
-    - http-conduit
-    - http-client-tls
     - tagsoup
     - text
 
